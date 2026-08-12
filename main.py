@@ -1,7 +1,7 @@
 import os
+import argparse
 from dotenv import load_dotenv
 from openai import OpenAI
-import argparse
 
 def main():
     parser = argparse.ArgumentParser(description="Chatbot")
