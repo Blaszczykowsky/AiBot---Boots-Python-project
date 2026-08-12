@@ -9,10 +9,7 @@ def main():
     args = parser.parse_args()
 
     messages = [
-        {
-            "role": "user",
-            "content": args.user_prompt, 
-        }
+        {"role": "user", "content": args.user_prompt,}
     ]
 
     load_dotenv()
@@ -26,12 +23,17 @@ def main():
         api_key=api_key,
     )
 
-    response = client.chat.completions.create(model = 'openrouter/free', messages=messages)
+    response = client.chat.completions.create(
+            model = 'openrouter/free',
+            messages=messages,
+            )
+
     if response.usage != None:
         prompt_tokens = response.usage.prompt_tokens
         completion_tokens = response.usage.completion_tokens
     else:
         raise RuntimeError("Something went wrong with response.usage")
+    
     print(f"User prompt: {messages}")
     print(f"Prompt tokens: {prompt_tokens}")
     print(f"Response tokens: {completion_tokens}")
