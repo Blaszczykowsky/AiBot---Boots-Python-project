@@ -1,5 +1,4 @@
 import os
-from pathlib import Path
 
 def get_files_info(working_directory: str, directory: str = ".") -> str:
     try:
@@ -8,7 +7,12 @@ def get_files_info(working_directory: str, directory: str = ".") -> str:
         valid_target_dir = os.path.commonpath([target_dir, working_directory_abs]) == working_directory_abs
         if valid_target_dir:
             if os.path.isdir(target_dir):
-                return f'Success: "{directory}" is within the working directory'
+                result_list = list()
+                for item in os.listdir(target_dir):
+                    full_path = os.path.join(target_dir, item)
+                    item_str = f"- {item}: file_size={os.path.getsize(full_path)}, is_dir={os.path.isdir(full_path)}"
+                    result_list.append(item_str)
+                return "\n".join(result_list) 
             else:
                 return f'Error: "{directory}" is not a directory'
         else:
