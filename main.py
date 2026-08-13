@@ -7,6 +7,7 @@ from prompts import system_prompt
 def main():
     parser = argparse.ArgumentParser(description="Chatbot")
     parser.add_argument("user_prompt", type=str, help="User prompt")
+    parser.add_argument("--verbose", action="store_true", help="Enable verbose output")
     args = parser.parse_args()
 
     messages = [
@@ -37,9 +38,10 @@ def main():
     else:
         raise RuntimeError("Something went wrong with response.usage")
     
-    print(f"User prompt: {messages}")
-    print(f"Prompt tokens: {prompt_tokens}")
-    print(f"Response tokens: {completion_tokens}")
+    if args.verbose:
+        print(f"User prompt: {messages}")
+        print(f"Prompt tokens: {prompt_tokens}")
+        print(f"Response tokens: {completion_tokens}")
     print(f"Response: {response.choices[0].message.content}")
 
 if __name__ == "__main__":
