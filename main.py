@@ -4,8 +4,7 @@ import json
 from dotenv import load_dotenv
 from openai import OpenAI
 from prompts import system_prompt
-from functions.call_function import avaiable_functions
-
+from call_function import available_functions 
 
 def main():
     parser = argparse.ArgumentParser(description="Chatbot")
@@ -32,7 +31,7 @@ def main():
     response = client.chat.completions.create(
         model='openrouter/free',
         messages=messages,
-        tools=avaiable_functions,
+        tools=available_functions
     )
 
     if response.usage != None:
